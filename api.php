@@ -1,4 +1,5 @@
 <?php
+ob_start();
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *"); // Permite acceso desde cualquier origen
 header("Access-Control-Allow-Headers: Content-Type"); // Permite el encabezado Content-Type
@@ -61,6 +62,7 @@ if ($method === "POST") {
     if ($stmt->execute()) {
         http_response_code(201); // Creado
         echo json_encode(["message" => "Opción Agregada con éxito.", "id" => $conn->insert_id]);
+        ob_end_flush();
     } else {
         http_response_code(500);
         echo json_encode(["error" => "Error al agregar la opción: " . $stmt->error]);
