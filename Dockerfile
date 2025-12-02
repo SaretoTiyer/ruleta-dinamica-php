@@ -1,36 +1,18 @@
-FROM php:8.3-fpm 
+# Usamos una imagen oficial que trae Apache y PHP juntos
+FROM php:8.2-apache
 
-# Instala servidor web, supervisor y herramientas (Usando apt para Debian)
-RUN apt-get update && apt-get install -y \
-    nginx \
-    supervisor \
-    wget \
-    && rm -rf /var/lib/apt/lists/*
-
-# Instala la extensión MySQLi y PDO
+# Instalamos las extensiones necesarias para conectar a MySQL
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
+# Habilitamos mod_rewrite (útil para URLs limpias, aunque opcional para tu caso actual)
+RUN a2enmod rewrite
 
-# Crea directorios necesarios
-RUN mkdir -p /run/nginx /var/log/nginx /var/www/html
+# Copiamos tus archivos al directorio público de Apache
+COPY . /var/www/html/
 
-# ----------------- CONFIGURACIÓN NGINX -----------------
-# Copia una configuración básica de Nginx para PHP
-COPY default.conf /etc/nginx/conf.d/default.conf
+# Ajustamos los permisos para que Apache pueda leer/escribir
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
 
-# ----------------- CONFIGURACIÓN SUPERVISOR -----------------
-# Supervisor gestiona la ejecución simultánea de Nginx y PHP-FPM
-COPY supervisord.conf /etc/supervisord.conf
-
-# ----------------- CÓDIGO DE LA APLICACIÓN -----------------
-# Copia todo el código del repositorio al directorio raíz del servidor
-COPY . /var/www/html
-
-# Establece los permisos correctos
-RUN chown -R www-data:www-data /var/www/html
-
-# Expone el puerto por defecto de Railway
-EXPOSE 8080
-
-# Inicia Supervisor (que inicia Nginx y PHP-FPM)
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+# Le decimos a Railway que este contenedor escucha en el puerto 80
+EXPOSE 80
