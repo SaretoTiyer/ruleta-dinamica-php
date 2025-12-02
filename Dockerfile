@@ -1,11 +1,15 @@
-# Usa una imagen base con PHP 8.x FPM (FastCGI Process Manager)
-FROM php:8.3-fpm-alpine
+FROM php:8.3-fpm 
 
-# Instala el servidor web Nginx y las herramientas necesarias
-RUN apk add --no-cache nginx supervisor wget
+# Instala servidor web, supervisor y herramientas (Usando apt para Debian)
+RUN apt-get update && apt-get install -y \
+    nginx \
+    supervisor \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
 
-# Instala la extensión MySQLi que tu API necesita
+# Instala la extensión MySQLi y PDO
 RUN docker-php-ext-install mysqli pdo pdo_mysql
+
 
 # Crea directorios necesarios
 RUN mkdir -p /run/nginx /var/log/nginx /var/www/html
