@@ -1,0 +1,138 @@
+/* ========================================================= */
+/* 1. Variables y Paleta de Colores Modernos */
+/* ========================================================= */
+:root {
+    --primary-color: #007bff; /* Azul vibrante para botones principales */
+    --success-color: #28a745; /* Verde para la ruleta */
+    --warning-color: #ffc107; /* Amarillo para editar */
+    --surface-color: #ffffff; /* Color de las tarjetas y modales */
+    --text-color: #343a40; /* Texto oscuro y legible */
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra suave */
+    --border-radius-lg: 10px;
+    --border-radius-sm: 6px;
+}
+
+/* ========================================================= */
+/* 2. Estilos Generales y Tipografía */
+/* ========================================================= */
+body {
+    background: #2A7B9B;
+    background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+h1 {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 2rem !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* ========================================================= */
+/* 3. Estilos de Tarjetas (Cards) y Sombras */
+/* ========================================================= */
+.card {
+    border: none;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Efecto hover sutil en tarjetas (opcional) */
+.card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    border-top-left-radius: var(--border-radius-lg);
+    border-top-right-radius: var(--border-radius-lg);
+    font-weight: 600;
+    /* Ajustes para los colores de Bootstrap */
+}
+.card-header.bg-primary { background-color: var(--primary-color) !important; }
+.card-header.bg-dark { background-color: var(--text-color) !important; }
+.card-header.bg-success { background-color: var(--success-color) !important; }
+
+
+/* ========================================================= */
+/* 4. Formularios y Elementos Interactivos */
+/* ========================================================= */
+
+/* Bordes y enfoque más suaves en inputs y selects */
+.form-control, .form-select {
+    border-radius: var(--border-radius-sm);
+    border: 1px solid #dee2e6;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* Estilo para los botones principales */
+.btn-primary, .btn-success {
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-lg {
+    letter-spacing: 0.5px;
+}
+
+/* Botón de la ruleta más llamativo */
+#btnRuleta {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+#btnRuleta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+}
+
+/* ========================================================= */
+/* 5. Tabla y Ruleta (Ajustes Específicos) */
+/* ========================================================= */
+
+.table {
+    border-radius: var(--border-radius-sm);
+    overflow: hidden; /* Asegura que el thead sticky respete el borde */
+}
+
+/* Estilo de la cabecera fija de la tabla */
+.table thead th {
+    background-color: var(--text-color);
+    color: var(--surface-color);
+    border-bottom: none;
+    padding: 1rem 0.75rem;
+}
+
+/* Filas de la tabla con efecto sutil */
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: #fcfdfe; /* Un blanco muy sutil para las franjas */
+}
+
+/* Iframe de la ruleta para hacerlo visualmente parte del diseño */
+#iframeRuleta {
+    border: 1px solid #e9ecef !important;
+    border-radius: var(--border-radius-sm);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra interna sutil */
+}
+
+/* ========================================================= */
+/* 6. Modales */
+/* ========================================================= */
+.modal-content {
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+.modal-header {
+    border-top-left-radius: var(--border-radius-lg);
+    border-top-right-radius: var(--border-radius-lg);
+}
+
+.modal-footer button {
+    font-weight: 500;
+}
