@@ -1,18 +1,23 @@
-# Usamos una imagen oficial que trae Apache y PHP juntos
+# Usamos la imagen base de Apache con PHP
 FROM php:8.2-apache
 
-# Instalamos las extensiones necesarias para conectar a MySQL
+# Instalamos extensiones para MySQL
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Habilitamos mod_rewrite (útil para URLs limpias, aunque opcional para tu caso actual)
+# Habilitamos mod_rewrite
 RUN a2enmod rewrite
 
-# Copiamos tus archivos al directorio público de Apache
+# --- CORRECCIÓN DEL PUERTO ---
+# Cambiamos la configuración de Apache para que escuche en el puerto 8080
+# en lugar del 80. Esto alinea Apache con lo que Railway espera por defecto.
+RUN sed -i 's/80/8080/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+
+# Copiamos los archivos
 COPY . /var/www/html/
 
-# Ajustamos los permisos para que Apache pueda leer/escribir
+# Ajustamos permisos
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-# Le decimos a Railway que este contenedor escucha en el puerto 80
-EXPOSE 80
+# Le decimos a Railway que escuche en el 8080
+EXPOSE 8080
