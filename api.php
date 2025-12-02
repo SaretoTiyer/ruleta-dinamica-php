@@ -1,5 +1,4 @@
 <?php
-// Configuración de encabezados para CORS y JSON
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *"); // Permite acceso desde cualquier origen
 header("Access-Control-Allow-Headers: Content-Type"); // Permite el encabezado Content-Type
