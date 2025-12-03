@@ -59,7 +59,24 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
         "wheelConfig" => [
             "title" => "Ruleta Dinámica",
             "description" => "Opciones generadas desde la base de datos de Railway.",
-            "entries" => $names // Ahora 'entries' está dentro de wheelConfig
+            "entries" => $names, // Arreglo con los nombres (entries)
+            // --- INICIO DE AJUSTES DE ESTILO Y COMPORTAMIENTO ---
+            // 1. Fondo de Página: Cambiado a un color gris claro
+            "pageBackgroundColor" => "#F8F8F8", 
+            // 2. Control de animaciones y apariencia
+            "displayWinnerDialog" => true, // Muestra un diálogo flotante bonito para el ganador
+            "launchConfetti" => true,      // Lanza confeti al ganar
+            "drawShadow" => true,          // Dibuja sombra para un mejor look and feel
+            "drawOutlines" => true,        // Dibuja contornos de las entradas
+            // 3. Tamaño de la fuente (Font size)
+            // Se utiliza la propiedad fontSettings para controlar el tamaño.
+            "fontSettings" => [
+                "fontSize" => 15 // Tamaño de fuente más pequeño (en píxeles)
+            ],
+
+            // 4. Centro de la ruleta (opcional)
+            "centerText" => "¡Gira Ahora!",
+
         ]
     ];
     

@@ -2,7 +2,7 @@
 /* 1. Variables y Paleta de Colores Modernos */
 /* ========================================================= */
 :root {
-    --primary-color: #007bff; /* Azul vibrante para botones principales */
+    --primary-color: #c0daf7; 
     --success-color: #28a745; /* Verde para la ruleta */
     --warning-color: #ffc107; /* Amarillo para editar */
     --surface-color: #ffffff; /* Color de las tarjetas y modales */

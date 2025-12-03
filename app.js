@@ -182,9 +182,17 @@ async function generarRuleta() {
 
         // 🟢 ÉXITO: Ahora el objeto 'data' DEBE tener la clave 'url'
         if (data && data.url) {
-            alert(`¡Ruleta creada! URL: ${data.url}`);
-            // Abrir el enlace en una nueva ventana
-            window.open(data.url, '_blank'); 
+            // 1. Obtener el elemento iframe por su ID
+            const iframe = document.getElementById('iframeRuleta');
+
+            // 2. Asignar la URL recibida al atributo 'src' del iframe
+            if (iframe) {
+                iframe.src = data.url;
+                alert(`¡Ruleta creada y cargada en el iframe!`);
+            } else {
+                console.error("Error: Elemento iframeRuleta no encontrado.");
+            }
+            //COMENTAR la línea: window.open(data.url, '_blank');
         } else {
             // Manejar errores si la respuesta no tiene la URL (o si PHP falló en el manejo)
             console.error("Error en la respuesta de la API externa:", data);
