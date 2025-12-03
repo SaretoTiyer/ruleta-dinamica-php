@@ -70,7 +70,7 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
             "drawOutlines" => true,
             "centerText" => "¡Gira Ahora!",
             // --- PROPIEDADES QUE PUEDEN SER CLAVE PARA ESTILO/COMPORTAMIENTO ---
-            "isAdvanced" => true, 
+            "isAdvanced" => false, 
 
             // 🎨 Añadir colores de alto contraste que se ciclen entre las entradas
             "colorSettings" => [
