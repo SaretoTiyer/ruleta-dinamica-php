@@ -49,8 +49,7 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
         while($row = $result->fetch_assoc()){
             // La API de Wheel of Names espera un arreglo de cadenas (strings)
             $names[] = [
-                "label" => $row['nombre'],
-                "weight" => 1 
+                "text" => $row['nombre'] 
             ];
         }
     }
