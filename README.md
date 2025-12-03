@@ -14,6 +14,7 @@ Este proyecto implementa una ruleta dinámica conectada con la API de [wheelofna
 - Interactividad dinámica con **JavaScript**.
 - Diseño personalizado usando **HTML** y **CSS**.
 - Configuración con **Dockerfile** para implementación sencilla.
+- **Despliegue sencillo usando Railway**.
 
 ## Tecnologías utilizadas
 
@@ -30,18 +31,29 @@ Este proyecto implementa una ruleta dinámica conectada con la API de [wheelofna
    git clone https://github.com/SaretoTiyer/ruleta-dinamica-php.git
    cd ruleta-dinamica-php
    ```
+
 2. Instala las dependencias necesarias.
-3. Ejecuta el proyecto localmente (usando Docker o servidor local):
 
-   **Con Docker:**
-   ```bash
-   docker build -t ruleta-php .
-   docker run -p 8080:80 ruleta-php
-   ```
+3. Puedes ejecutar el proyecto localmente o desplegarlo fácilmente en **Railway**.
 
-   **Sin Docker:**
-   - Copia los archivos en tu servidor con soporte PHP.
-   - Accede vía navegador a la carpeta principal.
+### Ejecución local
+
+**Con Docker:**
+```bash
+docker build -t ruleta-php .
+docker run -p 8080:80 ruleta-php
+```
+
+**Sin Docker:**
+- Copia los archivos en tu servidor con soporte PHP.
+- Accede vía navegador a la carpeta principal.
+
+### Despliegue en Railway
+
+1. Ve a [Railway](https://railway.app/).
+2. Crea un nuevo proyecto e importa este repositorio.
+3. Railway detectará el `Dockerfile` y facilitará el despliegue automático.
+4. Obtén la URL del proyecto para compartir tu API.
 
 ## Uso
 
@@ -51,7 +63,7 @@ Este proyecto implementa una ruleta dinámica conectada con la API de [wheelofna
 ## Créditos
 
 - API: [Wheel of Names](https://wheelofnames.com/)
-- Desarrollado por [SaretoTiyer](https://github.com/SaretoTiyer).
+- Desarrollado por [Santiago Reyes Torres](https://github.com/SaretoTiyer).
 
 ## Licencia
 
