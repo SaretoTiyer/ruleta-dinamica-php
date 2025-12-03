@@ -55,8 +55,11 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
     }
     
     // 3. Crear el cuerpo de la solicitud para Wheel of Names
+    <?php
+// ... (código anterior en api.php) ...
+
+    // 3. Crear el cuerpo de la solicitud para Wheel of Names
     $payload = [
-        $payload = [
         "wheelConfig" => [
             // --- PROPIEDADES ESENCIALES ---
             "title" => "Ruleta Dinámica",
@@ -76,6 +79,9 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
                 "fontSize" => 15 
             ],
 
+            // --- PROPIEDADES QUE PUEDEN SER CLAVE PARA ESTILO/COMPORTAMIENTO ---
+            "isAdvanced" => true,  // Habilitar si usas alguna propiedad avanzada (como fontSettings o colorSettings)
+            "allowDuplicates" => true, // Permitir duplicados si es necesario (el valor por defecto debería ser True)
         ],
         
         // --- PROPIEDADES DEL NIVEL SUPERIOR (FUERA DE wheelConfig) ---
