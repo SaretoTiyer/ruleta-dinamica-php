@@ -180,13 +180,13 @@ async function generarRuleta() {
 
         const data = await response.json();
 
-        // 🟢 ÉXITO: La respuesta 'data' contendrá el enlace de Wheel of Names
+        // 🟢 ÉXITO: Ahora el objeto 'data' DEBE tener la clave 'url'
         if (data && data.url) {
             alert(`¡Ruleta creada! URL: ${data.url}`);
-            // Aquí puedes abrir el enlace o incrustarlo
+            // Abrir el enlace en una nueva ventana
             window.open(data.url, '_blank'); 
         } else {
-            // Manejar errores de la API externa (si la respuesta no tiene URL)
+            // Manejar errores si la respuesta no tiene la URL (o si PHP falló en el manejo)
             console.error("Error en la respuesta de la API externa:", data);
             alert("Error al crear la ruleta. Revisa la consola.");
         }
