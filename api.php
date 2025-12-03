@@ -68,7 +68,7 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
     
     // Cabeceras HTTP requeridas por la API (Autorización y Tipo de Contenido)
     $headers = [
-        "Authorization: Bearer " . $wheel_api_key,
+        "x-api-key: " . $wheel_api_key,
         "Content-Type: application/json"
     ];
     
