@@ -56,28 +56,32 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
     
     // 3. Crear el cuerpo de la solicitud para Wheel of Names
     $payload = [
+        $payload = [
         "wheelConfig" => [
+            // --- PROPIEDADES ESENCIALES ---
             "title" => "Ruleta Dinámica",
             "description" => "Opciones generadas desde la base de datos de Railway.",
-            "entries" => $names, // Arreglo con los nombres (entries)
-            // --- INICIO DE AJUSTES DE ESTILO Y COMPORTAMIENTO ---
-            // 1. Fondo de Página: Cambiado a un color gris claro
+            "entries" => $names, // Arreglo con los objetos {"text": "Nombre"}
+            
+            // --- AJUSTES DE ESTILO SOLICITADOS ---
             "pageBackgroundColor" => "#F8F8F8", 
-            // 2. Control de animaciones y apariencia
-            "displayWinnerDialog" => true, // Muestra un diálogo flotante bonito para el ganador
-            "launchConfetti" => true,      // Lanza confeti al ganar
-            "drawShadow" => true,          // Dibuja sombra para un mejor look and feel
-            "drawOutlines" => true,        // Dibuja contornos de las entradas
-            // 3. Tamaño de la fuente (Font size)
-            // Se utiliza la propiedad fontSettings para controlar el tamaño.
+            "displayWinnerDialog" => true,
+            "launchConfetti" => true,
+            "drawShadow" => true,
+            "drawOutlines" => true,
+            "centerText" => "¡Gira Ahora!",
+            
+            // Ajuste de Fuente
             "fontSettings" => [
-                "fontSize" => 15 // Tamaño de fuente más pequeño (en píxeles)
+                "fontSize" => 15 
             ],
 
-            // 4. Centro de la ruleta (opcional)
-            "centerText" => "¡Gira Ahora!",
-
-        ]
+        ],
+        
+        // --- PROPIEDADES DEL NIVEL SUPERIOR (FUERA DE wheelConfig) ---
+        // La propiedad 'shareMode' a veces es requerida y debe ir fuera de wheelConfig
+        "shareMode" => "private" 
+    ];
     ];
     
     // 4. Configurar y ejecutar la solicitud cURL a la API externa
