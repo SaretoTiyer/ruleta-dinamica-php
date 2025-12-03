@@ -62,7 +62,6 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
             "title" => "Ruleta Dinámica",
             "description" => "Opciones generadas desde la base de datos de Railway.",
             "entries" => $names, // Arreglo con los objetos {"text": "Nombre"}
-            
             // --- AJUSTES DE ESTILO SOLICITADOS ---
             "pageBackgroundColor" => "#F8F8F8", 
             "displayWinnerDialog" => true,
@@ -70,15 +69,8 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
             "drawShadow" => true,
             "drawOutlines" => true,
             "centerText" => "¡Gira Ahora!",
-            
-            // Ajuste de Fuente
-            "fontSettings" => [
-                "fontSize" => 15 
-            ],
-
             // --- PROPIEDADES QUE PUEDEN SER CLAVE PARA ESTILO/COMPORTAMIENTO ---
             "isAdvanced" => true,  // Habilitar si usas alguna propiedad avanzada (como fontSettings o colorSettings)
-            "allowDuplicates" => true, // Permitir duplicados si es necesario (el valor por defecto debería ser True)
         ],
         
         // --- PROPIEDADES DEL NIVEL SUPERIOR (FUERA DE wheelConfig) ---
