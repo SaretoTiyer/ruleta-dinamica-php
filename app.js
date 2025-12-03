@@ -165,87 +165,35 @@ document.getElementById("btnGuardarCambios").addEventListener("click", () => {
 // ===============================
 async function generarRuleta() {
     try {
-        // 1. Obtener lista actual de opciones de tu API (GET /api.php)
-        const res = await fetch(API); 
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        const items = await res.json();
-
-        // 2. Filtrar y mapear entradas al formato requerido { text: "string" }
-        const entries = items
-            .filter(i => i.disponibilidad == 1)
-            .map(i => ({ text: i.nombre }));
-
-        if (entries.length === 0) {
-            document.getElementById("iframeRuleta").src = "";
-            return alert("No hay opciones activas para la ruleta. Agrega o activa algunas.");
-        }
-        
-        // --- 3. CONFIGURACIÓN DE ESTILO VIBRANTE Y DRAMÁTICO ---
-        
-        // Definir una paleta de colores vibrantes para la ruleta
-        const vibrantColors = [
-            { color: "#FF0077", enabled: true }, // Rosa Fucsia
-            { color: "#00A8FF", enabled: true }, // Azul Eléctrico
-            { color: "#FFEA00", enabled: true }, // Amarillo Brillante
-            { color: "#8B00FF", enabled: true }, // Púrpura Intenso
-            { color: "#FF5733", enabled: true }, // Naranja Corall
-            { color: "#33FF57", enabled: true }, // Verde Neón
-        ];
-
-        // 4. CONSTRUIR EL PAYLOAD CUMPLIENDO LA ESTRUCTURA DE LA DOCUMENTACIÓN
-        const wheelData = {
-            shareMode: 'copyable',
-            wheelConfig: {
-                // Propiedades básicas y de contenido
-                title: '🎉 ¡Ruleta de Opciones Dinámicas!',
-                description: 'Generada automáticamente.',
-                entries: entries,
-                
-                // Propiedades de Estilo y Comportamiento (Directamente en wheelConfig)
-                spinTime: 12, // Duración del giro más larga (dramático)
-                centerText: "¡GANADOR!", // Texto en el centro de la ruleta
-                launchConfetti: true, // Efecto de confeti al ganar
-                animateWinner: true, // Animación del ganador
-                displayWinnerDialog: true, // Mostrar cuadro de diálogo de ganador
-                
-                // Sonidos
-                duringSpinSound: "ticking-sound", // Sonido de tictac durante el giro
-                duringSpinSoundVolume: 70, 
-                afterSpinSound: "clapping-sound", // Sonido de aplausos al ganar
-                afterSpinSoundVolume: 80,
-                
-                // Colores (usando la propiedad correcta: colorSettings)
-                colorSettings: vibrantColors,
-
-                // Otras propiedades para mejorar la apariencia
-                drawShadow: true,
-                pointerChangesColor: true,
-                pageGradient: true
-            },
-        };
-
-        // --- 5. Llamar a la API de Wheel of Names (POST) ---
-        const apiResponse = await fetch(url, {
+        const response = await fetch('/api.php', {
             method: 'POST',
-            headers: headers,
-            body: JSON.stringify(wheelData),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // Enviar un cuerpo que PHP identifique como la acción de generación
+            body: JSON.stringify({ action: 'generate_wheel' }) 
         });
 
-        const jsonResponse = await apiResponse.json();
-
-        if (jsonResponse?.data?.path) {
-            const path = jsonResponse.data.path;
-            const wheelUrl = `https://wheelofnames.com/${path}`;
-            
-            document.getElementById("iframeRuleta").src = wheelUrl;
-            console.log(`Ruleta creada con éxito: ${wheelUrl}`);
-        } else {
-            console.error("Error al crear la ruleta en Wheel of Names API:", jsonResponse);
-            alert("Error al crear la ruleta. Revisa el TOKEN y los logs de la consola.");
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    } catch (err) {
-        console.error("Error general en generarRuleta:", err);
-        alert(`Error al generar la ruleta: ${err.message}`);
+
+        const data = await response.json();
+
+        // 🟢 ÉXITO: La respuesta 'data' contendrá el enlace de Wheel of Names
+        if (data && data.url) {
+            alert(`¡Ruleta creada! URL: ${data.url}`);
+            // Aquí puedes abrir el enlace o incrustarlo
+            window.open(data.url, '_blank'); 
+        } else {
+            // Manejar errores de la API externa (si la respuesta no tiene URL)
+            console.error("Error en la respuesta de la API externa:", data);
+            alert("Error al crear la ruleta. Revisa la consola.");
+        }
+
+    } catch (error) {
+        console.error("Error general en generarRuleta:", error);
+        alert("Error al intentar crear la ruleta.");
     }
 }
 

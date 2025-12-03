@@ -25,6 +25,69 @@ if (!$conn) {
     exit();
 }
 
+// --------------------------------------------------------------------
+// NUEVA SECCIÓN: MANEJO DE SOLICITUDES DE LA RULETA (POST)
+// --------------------------------------------------------------------
+if ($method === "POST" && isset($input["action"]) && $input["action"] === "generate_wheel") {
+    
+    // 1. Verificar la API Key
+    if (!$wheel_api_key) {
+        http_response_code(500);
+        echo json_encode(["error" => "La clave WHEEL_OF_NAMES_KEY no está configurada en el servidor."]);
+        exit();
+    }
+    
+    // 2. Obtener los nombres desde la Base de Datos
+    $result = $conn->query("SELECT nombre FROM ruleta WHERE disponibilidad = 1");
+    $names = [];
+
+    if ($result) {
+        while($row = $result->fetch_assoc()){
+            // La API de Wheel of Names espera un arreglo de cadenas (strings)
+            $names[] = $row['nombre']; 
+        }
+    }
+    
+    // 3. Crear el cuerpo de la solicitud para Wheel of Names
+    $payload = [
+        "title" => "Ruleta Dinámica",
+        "description" => "Opciones generadas desde la base de datos de Railway.",
+        "entries" => $names // Enviar los nombres obtenidos de la DB
+    ];
+    
+    // 4. Configurar y ejecutar la solicitud cURL a la API externa
+    $ch = curl_init($wheel_api_url);
+    
+    // Cabeceras HTTP requeridas por la API (Autorización y Tipo de Contenido)
+    $headers = [
+        "Authorization: Bearer " . $wheel_api_key,
+        "Content-Type: application/json"
+    ];
+    
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Devolver la transferencia como una cadena
+    curl_setopt($ch, CURLOPT_POST, true);           // Configurar como solicitud POST
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload)); // Adjuntar los datos JSON
+    
+    $api_response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    // 5. Manejar la respuesta de la API externa
+    if ($http_code === 201) { // 201 Created (o el código de éxito de la API)
+        http_response_code(200);
+        echo $api_response; // Devolver la respuesta de Wheel of Names directamente al frontend (contiene el enlace)
+    } else {
+        http_response_code(500);
+        echo json_encode([
+            "error" => "Error al crear la ruleta en Wheel of Names.",
+            "http_code" => $http_code,
+            "api_response" => json_decode($api_response, true)
+        ]);
+    }
+    exit();
+}
+
 // 1. GET (Listar) ----------------------------------------------------
 if ($method === "GET") {
     // Consulta para obtener todos los elementos de la ruleta
