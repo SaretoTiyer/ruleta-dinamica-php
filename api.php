@@ -70,7 +70,18 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
             "drawOutlines" => true,
             "centerText" => "¡Gira Ahora!",
             // --- PROPIEDADES QUE PUEDEN SER CLAVE PARA ESTILO/COMPORTAMIENTO ---
-            "isAdvanced" => true,  // Habilitar si usas alguna propiedad avanzada (como fontSettings o colorSettings)
+            "isAdvanced" => true, 
+
+            // 🎨 Añadir colores de alto contraste que se ciclen entre las entradas
+            "colorSettings" => [
+                ["color" => "#FF5733", "enabled" => true], // Rojo vibrante
+                ["color" => "#337AFF", "enabled" => true], // Azul brillante
+                ["color" => "#33FF57", "enabled" => true], // Verde brillante
+            ],
+            
+            // 📏 Optimización de espacio (para que el texto quepa)
+            "hubSize" => "XS",
+            "pictureType" => "text", 
         ],
         
         // --- PROPIEDADES DEL NIVEL SUPERIOR (FUERA DE wheelConfig) ---
