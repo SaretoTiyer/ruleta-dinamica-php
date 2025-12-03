@@ -82,7 +82,6 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
         // La propiedad 'shareMode' a veces es requerida y debe ir fuera de wheelConfig
         "shareMode" => "private" 
     ];
-    ];
     
     // 4. Configurar y ejecutar la solicitud cURL a la API externa
     $ch = curl_init($wheel_api_url);
