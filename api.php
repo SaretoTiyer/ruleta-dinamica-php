@@ -8,6 +8,10 @@ header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 // Incluir la configuración de la conexión a la base de datos
 include "config.php";
 
+// Obtener la API Key de Wheel of Names de las variables de entorno de Railway
+$wheel_api_key = getenv('WHEEL_OF_NAMES_KEY');
+$wheel_api_url = "https://wheelofnames.com/api/v2/wheels";
+
 $method = $_SERVER["REQUEST_METHOD"];
 // Decodificar el cuerpo de la solicitud para POST, PUT, DELETE
 $input = json_decode(file_get_contents("php://input"), true);
