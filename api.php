@@ -75,7 +75,7 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
         
         // --- PROPIEDADES DEL NIVEL SUPERIOR (FUERA DE wheelConfig) ---
         // La propiedad 'shareMode' a veces es requerida y debe ir fuera de wheelConfig
-        "shareMode" => "private" 
+        "shareMode" => "spin-only" 
     ];
     
     // 4. Configurar y ejecutar la solicitud cURL a la API externa
@@ -104,7 +104,7 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
         if (isset($response_data['data']['path'])) {
             $wheel_path = $response_data['data']['path'];
             // Construir la URL completa para que el frontend la use
-            $final_url = "https://wheelofnames.com/".$wheel_path; 
+            $final_url = "https://wheelofnames.com/embed/".$wheel_path;
             
             http_response_code(200);
             // Devolver un JSON fácil de usar con la URL completa
