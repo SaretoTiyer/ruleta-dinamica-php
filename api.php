@@ -54,9 +54,6 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
         }
     }
     
-    // 3. Crear el cuerpo de la solicitud para Wheel of Names
-    <?php
-// ... (código anterior en api.php) ...
 
     // 3. Crear el cuerpo de la solicitud para Wheel of Names
     $payload = [
