@@ -74,9 +74,10 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
 
             // 🎨 Añadir colores de alto contraste que se ciclen entre las entradas
             "colorSettings" => [
-                ["color" => "#FF5733", "enabled" => true], // Rojo vibrante
-                ["color" => "#337AFF", "enabled" => true], // Azul brillante
-                ["color" => "#33FF57", "enabled" => true], // Verde brillante
+                ["color" => "#fa967fff", "enabled" => true], 
+                ["color" => "#6d9aecff", "enabled" => true], 
+                ["color" => "#a2eeb0ff", "enabled" => true], 
+                ["color" => "#ec7bb9ff", "enabled" => true],
             ],
             
             // 📏 Optimización de espacio (para que el texto quepa)
