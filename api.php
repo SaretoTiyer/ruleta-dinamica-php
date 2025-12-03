@@ -54,9 +54,11 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
     
     // 3. Crear el cuerpo de la solicitud para Wheel of Names
     $payload = [
-        "title" => "Ruleta Dinámica",
-        "description" => "Opciones generadas desde la base de datos de Railway.",
-        "entries" => $names // Enviar los nombres obtenidos de la DB
+        "wheelConfig" => [
+            "title" => "Ruleta Dinámica",
+            "description" => "Opciones generadas desde la base de datos de Railway.",
+            "entries" => $names // Ahora 'entries' está dentro de wheelConfig
+        ]
     ];
     
     // 4. Configurar y ejecutar la solicitud cURL a la API externa
