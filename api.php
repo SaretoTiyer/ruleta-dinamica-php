@@ -82,10 +82,30 @@ if ($method === "POST" && isset($input["action"]) && $input["action"] === "gener
     curl_close($ch);
     
     // 5. Manejar la respuesta de la API externa
-    if ($http_code === 201) { // 201 Created (o el código de éxito de la API)
-        http_response_code(200);
-        echo $api_response; // Devolver la respuesta de Wheel of Names directamente al frontend (contiene el enlace)
+    if ($http_code === 201 || $http_code === 200) { 
+        // Decodificar la respuesta JSON de Wheel of Names
+        $response_data = json_decode($api_response, true); 
+        
+        if (isset($response_data['data']['path'])) {
+            $wheel_path = $response_data['data']['path'];
+            // Construir la URL completa para que el frontend la use
+            $final_url = "https://wheelofnames.com/es/".$wheel_path; 
+            
+            http_response_code(200);
+            // Devolver un JSON fácil de usar con la URL completa
+            echo json_encode([
+                "success" => true,
+                "url" => $final_url,
+                "path" => $wheel_path
+            ]);
+            
+        } else {
+            // Error si no se encuentra la clave 'path'
+            http_response_code(500); 
+            echo json_encode(["error" => "Respuesta inesperada de la API de Wheel of Names."]);
+        }
     } else {
+        // Manejar errores de la API externa (ej. 401, 404, etc.)
         http_response_code(500);
         echo json_encode([
             "error" => "Error al crear la ruleta en Wheel of Names.",
